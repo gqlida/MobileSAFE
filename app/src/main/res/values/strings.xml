@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mobilesafe</string>
+    <string name="setting_name">Setting</string>
+    <string name="about_name">About</string>
 </resources>

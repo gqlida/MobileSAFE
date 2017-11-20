@@ -34,6 +34,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
+
     final int START_INSTALL_APP = 0;
     private String url = "http://10.0.2.2:8080/update.json";
     private OkHttpClient mOkhttp;
@@ -42,8 +43,26 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-//        SplashTimer();
-        CheckUpdate();
+        SplashTimer();
+//        CheckUpdate();
+    }
+
+    private void SplashTimer() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(3000);
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
     }
 
     private int CheckPackageCode() {
@@ -194,24 +213,5 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-//        System.out.println("~~~~~~~~~~~~~~");
-    }
-
-    private void SplashTimer() {
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    Thread.sleep(3000);
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
     }
 }
