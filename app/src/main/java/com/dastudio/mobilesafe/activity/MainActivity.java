@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Process", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(MainActivity.this, "Tools", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, ToolsActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         menu.add(0,1,0,"FIND");
         menu.add(0,2,0,"RATE");
         menu.add(0,3,0,"SETTING");
-        menu.add(0,3,0,"ABOUT");
+        menu.add(0,4,0,"ABOUT");
         return super.onCreateOptionsMenu(menu);
     }
 
