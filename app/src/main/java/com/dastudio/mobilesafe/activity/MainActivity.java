@@ -3,6 +3,7 @@ package com.dastudio.mobilesafe.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,12 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
+import com.dastudio.mobilesafe.utils.SPutils;
 
 public class MainActivity extends AppCompatActivity {
 
     String[] funcNames = {"Antivirus","Apps","Process","Tools"};
     int[] imagePath = {R.mipmap.img_antivirus,R.mipmap.img_apps,R.mipmap.img_process,R.mipmap.img_tools};
     private ImageView mIv_logo;
+    private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +38,30 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
+
         mIv_logo = findViewById(R.id.iv_logo);
         mIv_logo.setImageResource(R.mipmap.img_logo);
-        logoAnim();
+        boolean homeAnim = SPutils.getBoolean(this, "HomeAnim", false);
+        if (homeAnim) {
+            logoAnim();
+        }
 
         GridView gv_main = findViewById(R.id.gv_main);
         gv_main.setAdapter(new MyAdapter());
         gridOnClick(gv_main);
 
+        mActionBar = getSupportActionBar();
+        mActionBar.setTitle(R.string.home_name);
+
     }
+
     public void logoAnim(){
         AlphaAnimation aa = new AlphaAnimation(1.0f,0.0f);
-        aa.setDuration(2000);
+        aa.setDuration(2400);
         aa.setRepeatCount(Animation.INFINITE);
         aa.setRepeatMode(Animation.REVERSE);
         mIv_logo.startAnimation(aa);
     }
-
 
 
     private void gridOnClick(GridView gv_main) {

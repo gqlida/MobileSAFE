@@ -1,5 +1,6 @@
 package com.dastudio.mobilesafe.activity;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,16 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
+import com.dastudio.mobilesafe.utils.SPutils;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private String[] set_content = {"Auto update","Mobile track","App theme"};
+    private String[] set_content = {"Auto update","Mobile track","Home Animation","App theme"};
 //    private int[] set_icons = {,,};
 //    private String[]
 
@@ -28,6 +32,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         mActionBar = getSupportActionBar();
+        assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setTitle(R.string.setting_name);
 
@@ -37,12 +42,17 @@ public class SettingActivity extends AppCompatActivity {
         ll_setting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (view.getId()) {
-                    case 1:
-
+                switch (position) {
+                    case 0:
+                        Toast.makeText(SettingActivity.this, "hello", Toast.LENGTH_SHORT).show();
                         break;
-
-
+                    case 1:
+                        break;
+                    case 2:
+                        Toast.makeText(SettingActivity.this, "hello", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        break;
                 }
             }
         });
@@ -54,11 +64,10 @@ public class SettingActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-
     class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
         @Override
         public Object getItem(int i) {
@@ -82,16 +91,29 @@ public class SettingActivity extends AppCompatActivity {
                 case 0:
 //                    setting_icons.setImageResource();
                     setting_content.setText(set_content[0]);
-                    setting_switch.setVisibility(View.GONE);
+                    setting_switch.setVisibility(View.VISIBLE);
                     break;
                 case 1:
 //                    setting_icons.setImageResource();
                     setting_content.setText(set_content[1]);
-                    setting_switch.setVisibility(View.GONE);
+                    setting_switch.setVisibility(View.VISIBLE);
                     break;
                 case 2:
 //                    setting_icons.setImageResource();
                     setting_content.setText(set_content[2]);
+                    setting_switch.setVisibility(View.VISIBLE);
+
+                    setting_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            SPutils.putBoolean(SettingActivity.this,"HomeAnim",b);
+                        }
+                    });
+
+                    break;
+                case 3:
+//                    setting_icons.setImageResource();
+                    setting_content.setText(set_content[3]);
                     setting_switch.setVisibility(View.GONE);
                     break;
             }

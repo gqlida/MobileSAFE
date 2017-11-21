@@ -9,10 +9,10 @@
         android:layout_height="130dp">
 
         <ImageView
-            android:layout_marginTop="5dp"
             android:id="@+id/iv_image"
-            android:padding="10dp"
-            android:src="@mipmap/img_apps"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:src="@drawable/btn_tools"
             android:layout_width="60dp"
             android:layout_height="60dp"/>
 

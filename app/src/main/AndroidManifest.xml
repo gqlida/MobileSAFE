@@ -30,6 +30,8 @@
         </activity>
         <activity android:name=".activity.ToolsActivity">
         </activity>
+        <activity android:name=".activity.mobileTrackActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -6,20 +6,18 @@ import android.os.Bundle;
 
 import com.dastudio.mobilesafe.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class mobileTrackActivity extends AppCompatActivity {
 
     private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-
+        setContentView(R.layout.activity_mobile_track);
 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setTitle(R.string.about_name);
-
+        mActionBar.setTitle(R.string.mobileTrack_name);
 
     }
 

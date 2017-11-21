@@ -3,4 +3,10 @@
     <string name="setting_name">Setting</string>
     <string name="about_name">About</string>
     <string name="tools_name">Tools</string>
+    <string name="mobileTrack_name">mobileTrack</string>
+    <string name="find_name">Find</string>
+    <string name="input_name">Input your phone number</string>
+    <string name="track_tv_province">Beijing China</string>
+    <string name="home_name">Home</string>
+
 </resources>

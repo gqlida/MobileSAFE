@@ -1,29 +1,53 @@
 package com.dastudio.mobilesafe.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 
 import com.dastudio.mobilesafe.R;
 
 public class ToolsActivity extends AppCompatActivity {
 
-    private android.app.ActionBar mActionBar;
+    private ActionBar mActionBar;
+    private GridView mGv_tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
 
-        mActionBar = getActionBar();
-        assert mActionBar != null;
+        mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setTitle(R.string.tools_name);
 
+
+        mGv_tools = findViewById(R.id.gv_tools);
+        mGv_tools.setAdapter(new MyAdapter());
+
+        mGv_tools.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        Intent intent = new Intent(ToolsActivity.this, mobileTrackActivity.class);
+                        startActivity(intent);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     class MyAdapter extends BaseAdapter {
