@@ -14,9 +14,8 @@ public class SPutils {
     private static SharedPreferences mSharedPreferences;
 
     public static void getSP(Context context){
-        if (mSharedPreferences == null) {
+        if (mSharedPreferences != null) {
             mSharedPreferences = context.getSharedPreferences("config", Context.MODE_PRIVATE);
-
         }
     }
 

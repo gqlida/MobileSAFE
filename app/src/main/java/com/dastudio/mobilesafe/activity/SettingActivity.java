@@ -1,6 +1,5 @@
 package com.dastudio.mobilesafe.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -104,18 +103,13 @@ public class SettingActivity extends AppCompatActivity {
                     setting_content.setText(set_content[2]);
                     setting_switch.setVisibility(View.VISIBLE);
 
-                    final boolean homeAnim = SPutils.getBoolean(SettingActivity.this, "HomeAnim", true);
-                    setting_switch.setChecked(homeAnim);
-
-                    setting_switch.setOnClickListener(new View.OnClickListener() {
+                    setting_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
-                        public void onClick(View v) {
-                            SPutils.putBoolean(SettingActivity.this,"HomeAnim",!homeAnim);
-                            Intent intent = getIntent();
-                            intent.putExtra("HomeAnim",!homeAnim);
-                            setResult(2,intent);
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            SPutils.putBoolean(SettingActivity.this,"HomeAnim",b);
                         }
                     });
+
                     break;
                 case 3:
 //                    setting_icons.setImageResource();

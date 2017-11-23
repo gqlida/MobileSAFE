@@ -20,6 +20,7 @@ public class AboutActivity extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setTitle(R.string.about_name);
 
+
     }
 
     @Override

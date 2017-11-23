@@ -10,8 +10,7 @@
     </style>
 
     <style name="FullScreen" parent="AppThemeNoBar">
-        <!--<item name="android:windowFullscreen">true</item>-->
-        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
