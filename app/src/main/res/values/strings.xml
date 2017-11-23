@@ -9,4 +9,10 @@
     <string name="track_tv_province">Beijing China</string>
     <string name="home_name">Home</string>
 
+    <string name="tools_01">Mobile Track</string>
+    <string name="tools_02">SMS-Backup</string>
+    <string name="tools_03">SMS-Restore</string>
+    <string name="tools_04">App Lock</string>
+    <string name="tools_05">E-dog</string>E
+
 </resources>

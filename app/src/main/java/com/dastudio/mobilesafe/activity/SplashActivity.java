@@ -16,12 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
+import com.dastudio.mobilesafe.utils.CloseUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +40,8 @@ public class SplashActivity extends AppCompatActivity {
     final int START_INSTALL_APP = 0;
     private String url = "http://10.0.2.2:8080/update.json";
     private OkHttpClient mOkhttp;
+    private FileOutputStream mFos;
+    private InputStream mIs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,30 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         SplashTimer();
 //        CheckUpdate();
+
+        loadAddressDb();
+    }
+
+    private void loadAddressDb() {
+
+        File file = new File(getFilesDir(),"address.db");
+        if (!file.exists()) {
+            try {
+
+                mFos = new FileOutputStream(file);
+                mIs = getAssets().open("address.db");
+                int len = 0;
+                byte[] buffer = new byte[1024];
+                while ((len = mIs.read(buffer)) != -1){
+                    mFos.write(buffer,0,len);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                CloseUtils.closeStream(mFos,mIs);
+            }
+        }
+
     }
 
     private void SplashTimer() {

@@ -10,10 +10,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.dastudio.mobilesafe.R;
 
 public class ToolsActivity extends AppCompatActivity {
+
+    int[] tools = {
+            R.string.tools_01,
+            R.string.tools_02,
+            R.string.tools_03,
+            R.string.tools_04,
+            R.string.tools_05};
 
     private ActionBar mActionBar;
     private GridView mGv_tools;
@@ -53,7 +61,7 @@ public class ToolsActivity extends AppCompatActivity {
     class MyAdapter extends BaseAdapter {
             @Override
             public int getCount() {
-                return 6;
+                return 5;
             }
             @Override
             public Object getItem(int i) {
@@ -69,6 +77,9 @@ public class ToolsActivity extends AppCompatActivity {
             public View getView(int i, View convertView, ViewGroup viewGroup) {
                 @SuppressLint("ViewHolder")
                 View view = View.inflate(getApplicationContext(),R.layout.item_tools,null);
+
+                TextView tv_function = view.findViewById(R.id.tv_function);
+                tv_function.setText(tools[i]);
 
                 return view;
             }

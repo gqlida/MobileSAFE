@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     int[] imagePath = {R.mipmap.img_antivirus,R.mipmap.img_apps,R.mipmap.img_process,R.mipmap.img_tools};
     private ImageView mIv_logo;
     private ActionBar mActionBar;
+    private boolean mHomeAnim;
+    //    private boolean mIsAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         mIv_logo = findViewById(R.id.iv_logo);
         mIv_logo.setImageResource(R.mipmap.img_logo);
-        boolean homeAnim = SPutils.getBoolean(this, "HomeAnim", false);
-        if (homeAnim) {
+//        logoAnim();
+
+        boolean isAnim = SPutils.getBoolean(this, "HomeAnim", true);
+
+        if (isAnim) {
             logoAnim();
         }
 
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         aa.setRepeatCount(Animation.INFINITE);
         aa.setRepeatMode(Animation.REVERSE);
         mIv_logo.startAnimation(aa);
+
     }
 
 
@@ -107,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 Intent intent = new Intent(this,SettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
                 break;
             case 4:
                 Intent intent1 = new Intent(this,AboutActivity.class);
@@ -115,6 +121,20 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (data != null){
+            mHomeAnim = data.getBooleanExtra("HomeAnim", true);
+        }
+        if (mHomeAnim){
+            logoAnim();
+        }else{
+            mIv_logo.clearAnimation();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     class MyAdapter extends BaseAdapter {
@@ -145,5 +165,11 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
+    }
+
+    @Override
+    protected void onResume() {
+//        mIsAnim = SPutils.getBoolean(this, "HomeAnim", true);
+        super.onResume();
     }
 }
