@@ -49,7 +49,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         SplashTimer();
 //        CheckUpdate();
-
         loadAddressDb();
     }
 
@@ -58,7 +57,6 @@ public class SplashActivity extends AppCompatActivity {
         File file = new File(getFilesDir(),"address.db");
         if (!file.exists()) {
             try {
-
                 mFos = new FileOutputStream(file);
                 mIs = getAssets().open("address.db");
                 int len = 0;
@@ -72,7 +70,6 @@ public class SplashActivity extends AppCompatActivity {
                 CloseUtils.closeStream(mFos,mIs);
             }
         }
-
     }
 
     private void SplashTimer() {
@@ -211,7 +208,6 @@ public class SplashActivity extends AppCompatActivity {
                         currentPosition += len;
                         Dialog.setProgress(currentPosition);
                     }
-
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     Uri uri = Uri.fromFile(file);
@@ -219,7 +215,6 @@ public class SplashActivity extends AppCompatActivity {
                     intent.setDataAndType(uri,"application/vnd.android.package-archive");
                     //调用onActivityResult来回调code的正确性
                     startActivityForResult(intent,START_INSTALL_APP);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                     enterMainActivity();

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         mIv_logo = findViewById(R.id.iv_logo);
         mIv_logo.setImageResource(R.mipmap.img_logo);
-//        logoAnim();
 
         boolean isAnim = SPutils.getBoolean(this, "HomeAnim", true);
 

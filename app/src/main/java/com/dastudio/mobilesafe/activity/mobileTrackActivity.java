@@ -3,11 +3,16 @@ package com.dastudio.mobilesafe.activity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dastudio.mobilesafe.R;
+import com.dastudio.mobilesafe.utils.AddressDbUtils;
 
 public class mobileTrackActivity extends AppCompatActivity {
 
@@ -28,6 +33,26 @@ public class mobileTrackActivity extends AppCompatActivity {
         mTrack_tv_province = findViewById(R.id.track_tv_province);
 
 
+        mTrack_et_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String number = editable.toString();
+                if (!TextUtils.isEmpty(number)) {
+                    String address = AddressDbUtils.getAddress(getApplicationContext(), number);
+                    mTrack_tv_province.setText(address);
+                }
+            }
+        });
 
     }
 
@@ -38,11 +63,12 @@ public class mobileTrackActivity extends AppCompatActivity {
     }
 
     public void find(View v){
-        String input_text = mTrack_et_input.getText().toString().trim();
-        if (input_text.startsWith("010")){
-            mTrack_tv_province.setText("固话");
-        }
 
+        String number = mTrack_et_input.getText().toString().trim();
+
+        String address = AddressDbUtils.getAddress(getApplicationContext(), number);
+
+        mTrack_tv_province.setText(address);
 
 
     }
