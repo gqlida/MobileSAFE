@@ -13,7 +13,6 @@ public class AddressDbUtils {
 
     public static String getAddress(Context context,String number){
 
-
         String result = "null";
         String path = context.getFilesDir().getAbsolutePath()+"/address.db";
         SQLiteDatabase db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
@@ -49,20 +48,21 @@ public class AddressDbUtils {
                     if (cursor != null && cursor.moveToNext()){
                         result = cursor.getString(0);
                         cursor.close();
-                        return "归属地:"+result;
+                        return "-归属地:"+result;
                     }
 
                     number_3 = number.substring(0, 4);
                     cursor = db.rawQuery(sql, new String[]{number_3});
                     if (cursor != null && cursor.moveToNext()){
                         result = cursor.getString(0);
-                        return "归属地:"+result;
+                        return "-归属地:"+result;
                     }
                     break;
             }
         }
 
-        return "归属地：" + result;
+        return "-" +
+                "归属地：" + result;
     }
 
 

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
+import com.dastudio.mobilesafe.service.ListenCallService;
 import com.dastudio.mobilesafe.utils.CloseUtils;
 
 import org.json.JSONException;
@@ -50,6 +51,13 @@ public class SplashActivity extends AppCompatActivity {
         SplashTimer();
 //        CheckUpdate();
         loadAddressDb();
+        startCallListen();
+    }
+
+
+    private void startCallListen(){
+        Intent intent = new Intent(this, ListenCallService.class);
+        startService(intent);
     }
 
     private void loadAddressDb() {
