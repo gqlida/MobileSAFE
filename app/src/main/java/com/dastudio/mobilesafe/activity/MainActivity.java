@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Apps", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(MainActivity.this, "Process", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(MainActivity.this, ProcessActivity.class);
+                        startActivity(intent2);
                         break;
                     case 3:
-                        Intent intent = new Intent(MainActivity.this, ToolsActivity.class);
-                        startActivity(intent);
+                        Intent intent3 = new Intent(MainActivity.this, ToolsActivity.class);
+                        startActivity(intent3);
                         break;
                 }
             }
