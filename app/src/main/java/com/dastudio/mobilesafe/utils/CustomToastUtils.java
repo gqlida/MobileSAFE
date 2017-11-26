@@ -51,7 +51,6 @@ public class CustomToastUtils {
                     case MotionEvent.ACTION_MOVE:
                         break;
                 }
-
                 return  true;
             }
         });
