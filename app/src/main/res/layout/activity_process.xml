@@ -25,7 +25,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
@@ -37,7 +36,7 @@
             <ListView
                 android:id="@+id/lv_process"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             </ListView>
 
 

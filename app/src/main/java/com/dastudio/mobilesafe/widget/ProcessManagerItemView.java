@@ -69,8 +69,9 @@ public class ProcessManagerItemView extends LinearLayout {
         mProcessRightText.setText(str);
     }
 
-    public void setProgressBar(int process){
+    public void setProgressBar(int process,int max){
        mProgressBar.setProgress(process);
+       mProgressBar.setMax(max);
     }
 
 }
