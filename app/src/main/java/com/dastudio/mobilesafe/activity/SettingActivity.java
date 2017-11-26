@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
-import com.dastudio.mobilesafe.service.ListenCallService;
-import com.dastudio.mobilesafe.utils.CloseUtils;
 import com.dastudio.mobilesafe.utils.SPutils;
 
 public class SettingActivity extends AppCompatActivity {
@@ -67,9 +65,6 @@ public class SettingActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-
-
-
     class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -103,27 +98,7 @@ public class SettingActivity extends AppCompatActivity {
 //                    setting_icons.setImageResource();
                     setting_content.setText(set_content[1]);
                     setting_switch.setVisibility(View.VISIBLE);
-
-                    final boolean mobileTrack = SPutils.getBoolean(getApplicationContext(), "MobileTrack", true);
-                    setting_switch.setChecked(mobileTrack);
-
-                    setting_switch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (mobileTrack) {
-                               stopService(new Intent(getApplicationContext(),ListenCallService.class));
-                                SPutils.putBoolean(getApplicationContext(),"MobileTrack",!mobileTrack);
-                            }else{
-                                startService(new Intent(getApplicationContext(),ListenCallService.class));
-                                SPutils.putBoolean(getApplicationContext(),"MobileTrack",!mobileTrack);
-                            }
-                        }
-                    });
-
-
                     break;
-
                 case 2:
 //                    setting_icons.setImageResource();
                     setting_content.setText(set_content[2]);
