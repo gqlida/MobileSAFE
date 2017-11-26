@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/package_icon"
+            android:src="@mipmap/ic_launcher"
+            android:padding="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+
+        <com.dastudio.mobilesafe.widget.FocusedTextView
+            android:id="@+id/package_name"
+            android:layout_toEndOf="@+id/package_icon"
+            android:layout_marginLeft="5dp"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusableInTouchMode="true"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="MobileSafe"/>
+
+        <TextView
+            android:id="@+id/package_memSize"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="19dp"
+            android:layout_toStartOf="@+id/checkBox"
+            android:text="可用内存"
+            />
+
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_marginRight="12dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/package_memSize"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
