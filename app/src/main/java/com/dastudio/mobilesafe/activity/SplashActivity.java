@@ -223,6 +223,7 @@ public class SplashActivity extends AppCompatActivity {
                     intent.setDataAndType(uri,"application/vnd.android.package-archive");
                     //调用onActivityResult来回调code的正确性
                     startActivityForResult(intent,START_INSTALL_APP);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     enterMainActivity();

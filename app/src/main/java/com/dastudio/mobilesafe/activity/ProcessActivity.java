@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.dastudio.mobilesafe.R;
@@ -21,10 +22,12 @@ import com.dastudio.mobilesafe.bean.appInfo;
 import com.dastudio.mobilesafe.utils.ProcessInfoUtils;
 import com.dastudio.mobilesafe.widget.ProcessManagerItemView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ProcessActivity extends AppCompatActivity {
+
 
     private ProcessManagerItemView mPmivProcess;
     private ProcessManagerItemView mPmivMemory;
@@ -34,6 +37,11 @@ public class ProcessActivity extends AppCompatActivity {
     private CheckBox mCheckBoxSelect;
     private List<appInfo> mAllProcessInfo;
     private List<appInfo> mInstalledAppInfos;
+    private ArrayList<appInfo> mSysInstallApps;
+    private ArrayList<appInfo> mCustomerInstallAppInfo;
+    private static final int ITEM_TEXT = 0;
+    private static final int ITEM_TEXT_IMG = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +61,30 @@ public class ProcessActivity extends AppCompatActivity {
         initProcess();
         initMemory();
 
-
-
         new Thread(new Runnable() {
 
 
 
             @Override
             public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //获取用户安装所有应用的信息
                 mInstalledAppInfos = ProcessInfoUtils.getInstalledAppInfo(ProcessActivity.this);
+                mCustomerInstallAppInfo = new ArrayList<>();
+                mSysInstallApps = new ArrayList<>();
+
+                for (appInfo installedAppInfo : mInstalledAppInfos) {
+                    if (installedAppInfo.isSys()){
+                        mCustomerInstallAppInfo.add(installedAppInfo);
+                    }else{
+                        mSysInstallApps.add(installedAppInfo);
+                    }
+                }
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -72,73 +95,123 @@ public class ProcessActivity extends AppCompatActivity {
             }
         }).start();
 
-
-
-
-
     }
 
     class packageAdapter extends BaseAdapter{
 
         @Override
-        public int getCount() {
-            return mInstalledAppInfos.size();
+        public int getViewTypeCount() {
+            return 2;
         }
 
         @Override
-        public Object getItem(int i) {
-            return null;
+        public int getItemViewType(int position) {
+            if (position == 0 || position == mCustomerInstallAppInfo.size()+1){
+                return ITEM_TEXT;
+            }else{
+                return ITEM_TEXT_IMG;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return mCustomerInstallAppInfo.size()+ mInstalledAppInfos.size() +2;
+        }
+
+        @Override
+        public appInfo getItem(int i) {
+
+            if (i == 0 || i == mCustomerInstallAppInfo.size() + 1) {
+                return null;
+            }else{
+                //TODO
+                if (i < mCustomerInstallAppInfo.size() + 1) {
+                    return mCustomerInstallAppInfo.get(i-1);
+                }else{
+                    return mSysInstallApps.get(i - mCustomerInstallAppInfo.size()-2);
+                }
+
+            }
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View getView(int i, View convertview, ViewGroup viewGroup) {
-            View view;
-            if (convertview == null){
-                view = View.inflate(ProcessActivity.this, R.layout.item_process, null);
-            }else{
-                view = convertview;
+
+            int itemViewType = getItemViewType(i);
+            if (itemViewType == ITEM_TEXT) {
+                if (convertview == null) {
+                    convertview = View.inflate(ProcessActivity.this,R.layout.item_process_title,null);
+                    TextView processTitle = convertview.findViewById(R.id.tv_process_title);
+                    TextView processumber = convertview.findViewById(R.id.tv_process_number);
+
+                    if (i == 0) {
+                        processTitle.setText("InstallApplication");
+                        processumber.setText(mCustomerInstallAppInfo.size()+"");
+                    }else{
+                        processTitle.setText("SystemApplication");
+                        processumber.setText(mSysInstallApps.size()+"");
+                    }
+
+                }
+                
+                return convertview;
+
+            } else {
+                ViewHolder viewHolder = null;
+
+                if (convertview == null) {
+                    convertview = View.inflate(ProcessActivity.this, R.layout.item_process, null);
+
+                    viewHolder = new ViewHolder();
+
+                    viewHolder.appIcon = convertview.findViewById(R.id.package_icon);
+                    viewHolder.appName = convertview.findViewById(R.id.package_name);
+                    viewHolder.appMemSize = convertview.findViewById(R.id.package_memSize);
+                    viewHolder.isSelect = convertview.findViewById(R.id.cb_process_select);
+                    //将viewHolder挂载到convertView上，让系统帮助存储
+                    convertview.setTag(viewHolder);
+                } else {
+                    //如果不为空的haul 就可以复用
+                    viewHolder = (ViewHolder) convertview.getTag();
+                }
+
+                viewHolder.appIcon.setImageDrawable(mInstalledAppInfos.get(i).getDrawable());
+                viewHolder.appName.setText(mInstalledAppInfos.get(i).getName());
+                viewHolder.appMemSize.setText("50MB");
+
+                return convertview;
             }
-
-            ImageView appIcon = view.findViewById(R.id.package_icon);
-            TextView appName = view.findViewById(R.id.package_name);
-            TextView appMemSize = view.findViewById(R.id.package_memSize);
-            CheckBox isSelect = view.findViewById(R.id.cb_process_select);
-
-            appIcon.setImageDrawable(mInstalledAppInfos.get(i).getDrawable());
-            appName.setText(mInstalledAppInfos.get(i).getName());
-            appMemSize.setText("50MB");
-
-            return view;
         }
     }
 
-
-
+    static class ViewHolder{
+        ImageView appIcon;
+        TextView appName;
+        TextView appMemSize;
+        CheckBox isSelect;
+    }
 
     private void initProcess() {
         int runningProcessCount = ProcessInfoUtils.getRunningProcessCount(this);
         int allProcess = ProcessInfoUtils.getAllProcess(this);
 
-
         mPmivProcess.setProcessName("Process");
         mPmivProcess.setProcessLeftText(runningProcessCount+"");
         mPmivProcess.setProcessRightText(allProcess+"");
-
 
         int progress = runningProcessCount * 100 / allProcess;
 
         mPmivProcess.setProgressBar(progress);
 
-
     }
 
     private void initMemory() {
-
 
         long totalMem = ProcessInfoUtils.getTotalMem(this);
         long avaiMem = ProcessInfoUtils.getAvaiMem(this);
@@ -167,9 +240,7 @@ public class ProcessActivity extends AppCompatActivity {
         mProgressLoading = findViewById(R.id.progress_loading);
         mProcessClear = findViewById(R.id.btn_process_clear);
         mCheckBoxSelect = findViewById(R.id.cb_process_select);
-
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

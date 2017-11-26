@@ -133,16 +133,18 @@ public class ProcessInfoUtils {
             int totalPssBytes = 0;
 
             try {
-                //TODO why???
+
                 //使用applicationInfo 获取图标  名字 是否为系统进程    pm
                 ApplicationInfo applicationInfo = pm.getApplicationInfo(processName, 0);
                 appIcon = applicationInfo.loadIcon(pm);
                 appName = applicationInfo.loadLabel(pm).toString();
+
                 if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) == applicationInfo.FLAG_SYSTEM) {
                     isSys = true;
                 }else{
                     isSys = false;
                 }
+
                 int pid = processInfo.pid;
                 //使用 am来获取 内存的占用空间
                 int[] pids = {pid};
@@ -171,20 +173,19 @@ public class ProcessInfoUtils {
 
         ArrayList<appInfo> appInfos = new ArrayList<>();
 
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+//        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         PackageManager packageManager = context.getPackageManager();
 
 
         List<ApplicationInfo> installedApplications = packageManager.getInstalledApplications(0);
+
 
         for (ApplicationInfo installedApplication : installedApplications) {
 
 
                 Drawable appIcon = installedApplication.loadIcon(packageManager);
                 String appName = installedApplication.loadLabel(packageManager).toString();
-
-                boolean isSys = false;
-
+                boolean isSys = true;
                 if ((installedApplication.flags & installedApplication.FLAG_SYSTEM) == installedApplication.FLAG_SYSTEM) {
                     isSys = true;
                 }else{
