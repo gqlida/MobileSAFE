@@ -13,14 +13,16 @@ public class appInfo {
     private int memSize;
     private boolean isSys;
     private boolean isCheck;
+    private String packageName;
 
 
-    public appInfo(Drawable drawable, String name, int memSize, boolean isSys, boolean isCheck) {
+    public appInfo(Drawable drawable, String name, int memSize, boolean isSys, boolean isCheck, String packageName) {
         mDrawable = drawable;
         this.name = name;
         this.memSize = memSize;
         this.isSys = isSys;
         this.isCheck = isCheck;
+        this.packageName = packageName;
     }
 
 
@@ -62,5 +64,13 @@ public class appInfo {
 
     public void setCheck(boolean check) {
         isCheck = check;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

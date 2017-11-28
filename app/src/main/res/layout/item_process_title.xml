@@ -5,8 +5,9 @@
 
 
      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+         android:background="#eee"
+         android:layout_width="match_parent"
+         android:layout_height="40dp">
 
             <TextView
                 android:id="@+id/tv_process_title"

@@ -43,6 +43,19 @@
 
         <activity android:name=".activity.ProcessActivity">
         </activity>
+
+
+        <receiver
+            android:name=".activity.UninstallReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"></action>
+                <action android:name="android.intent.action.PACKAGE_INSTALL"></action>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

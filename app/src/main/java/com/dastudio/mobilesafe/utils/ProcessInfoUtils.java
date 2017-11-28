@@ -26,6 +26,7 @@ import java.util.List;
 public class ProcessInfoUtils {
 
 
+    private static String sPackageName;
 
     public static int getRunningProcessCount(Context context){
 
@@ -138,6 +139,7 @@ public class ProcessInfoUtils {
                 ApplicationInfo applicationInfo = pm.getApplicationInfo(processName, 0);
                 appIcon = applicationInfo.loadIcon(pm);
                 appName = applicationInfo.loadLabel(pm).toString();
+                sPackageName = applicationInfo.packageName;
 
                 if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) == applicationInfo.FLAG_SYSTEM) {
                     isSys = true;
@@ -158,9 +160,8 @@ public class ProcessInfoUtils {
                 appName = "Android";
                 isSys = true;
 
-
             } finally {
-                appInfo info = new appInfo(appIcon, appName, totalPssBytes, isSys, false);
+                appInfo info = new appInfo(appIcon, appName, totalPssBytes, isSys, false,sPackageName);
                 appinfo.add(info);
             }
         }
@@ -176,15 +177,15 @@ public class ProcessInfoUtils {
 //        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         PackageManager packageManager = context.getPackageManager();
 
-
         List<ApplicationInfo> installedApplications = packageManager.getInstalledApplications(0);
-
 
         for (ApplicationInfo installedApplication : installedApplications) {
 
 
                 Drawable appIcon = installedApplication.loadIcon(packageManager);
                 String appName = installedApplication.loadLabel(packageManager).toString();
+                String packageName = installedApplication.packageName;
+
                 boolean isSys = true;
                 if ((installedApplication.flags & installedApplication.FLAG_SYSTEM) == installedApplication.FLAG_SYSTEM) {
                     isSys = true;
@@ -192,7 +193,7 @@ public class ProcessInfoUtils {
                     isSys = false;
                 }
 
-                appInfo appInfo = new appInfo(appIcon, appName, 80, isSys, false);
+                appInfo appInfo = new appInfo(appIcon, appName, 80, isSys, false,packageName);
 
                 appInfos.add(appInfo);
 

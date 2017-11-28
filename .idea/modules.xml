@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MobileSAFE.iml" filepath="$PROJECT_DIR$/MobileSAFE.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mobilesafe105/mobilesafe105.iml" filepath="$PROJECT_DIR$/mobilesafe105/mobilesafe105.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mobilesafe105/mobilesafe105.iml" filepath="$PROJECT_DIR$/mobilesafe105/mobilesafe105.iml" />
       <module fileurl="file://$PROJECT_DIR$/safe.iml" filepath="$PROJECT_DIR$/safe.iml" />
     </modules>
   </component>
