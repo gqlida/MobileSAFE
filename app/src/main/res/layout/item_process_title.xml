@@ -6,12 +6,13 @@
 
      <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
             <TextView
                 android:id="@+id/tv_process_title"
-                android:textSize="18sp"
-                android:layout_marginLeft="5dp"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:text="InstallApplication:"
                 android:layout_width="wrap_content"
@@ -19,10 +20,11 @@
 
             <TextView
                 android:id="@+id/tv_process_number"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:text="20"
                 android:textColor="#fff"
-                android:textAlignment="center"
+                android:gravity="center"
+                android:paddingBottom="2dp"
                 android:background="@drawable/process_title"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"

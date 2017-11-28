@@ -1,6 +1,8 @@
 package com.dastudio.mobilesafe.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.dastudio.mobilesafe.R;
 import com.dastudio.mobilesafe.utils.SPutils;
+import com.dastudio.mobilesafe.widget.RateDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,7 +112,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Designing...",Toast.LENGTH_SHORT).show();
                 break;
             case 2:
-                Toast.makeText(this,"Designing...",Toast.LENGTH_SHORT).show();
+
+                RateDialog rateDialog = new RateDialog(this);
+                rateDialog.setTitle("Rate");
+                rateDialog.show();
+
+
                 break;
             case 3:
                 Intent intent = new Intent(this,SettingActivity.class);
